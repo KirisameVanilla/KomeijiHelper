@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginView from "@/views/LoginView.vue";
 import AboutView from "@/views/AboutView.vue";
 import HomeView from "@/views/HomeView.vue";
+import SelectAssistantView from "@/views/SelectAssistantView.vue";
 
 const routes = [
     {
@@ -19,6 +20,11 @@ const routes = [
         path: "/about",
         name: "About",
         component: AboutView,
+    },
+    {
+        path: "/select",
+        name: "Select",
+        component: SelectAssistantView,
     },
 ];
 
