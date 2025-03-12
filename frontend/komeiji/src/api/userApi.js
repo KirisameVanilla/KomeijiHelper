@@ -73,5 +73,12 @@ export default {
 
     async logout() {
         await apiClient.get('/user/logout');
+    },
+
+    async startConversation(name){
+        // TODO: 这里应该先发送通知给咨询师
+        const postJson = {
+            consultantName: name,
+        }
     }
 };
