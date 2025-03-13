@@ -2,6 +2,9 @@ package komeiji.back.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Table(name = "user")
 @Entity
 public class User {
@@ -13,6 +16,10 @@ public class User {
     private String password;
     private UserClass userClass = UserClass.Normal;
     private String email;
+    private String userNotificationsJson;
+
+    @Transient
+    private List<UserNotification> userNotifications = UserNotification.listFromJson(userNotificationsJson);
 
     public long getId() {
         return id;
