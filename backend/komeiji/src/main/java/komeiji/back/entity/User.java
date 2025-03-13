@@ -19,7 +19,7 @@ public class User {
     private String userNotificationsJson;
 
     @Transient
-    private List<UserNotification> userNotifications = UserNotification.listFromJson(userNotificationsJson);
+    public List<UserNotification> userNotifications = UserNotification.listFromJson(userNotificationsJson);
 
     public long getId() {
         return id;

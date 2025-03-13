@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import komeiji.back.entity.UserClass;
+import komeiji.back.entity.UserNotification;
 import komeiji.back.service.UserService;
 import komeiji.back.entity.User;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class UserController {
 
         if(loginResult){
             session.setAttribute("LoginUser", loginUser.getUserName());
+            session.setAttribute("UserID", loginUser.getId());
             return Result.success(loginUser.getUserName(), "登录成功");
         }
         else{
@@ -40,6 +42,7 @@ public class UserController {
         Boolean registerResult = userService.registerService(newUser);
         if (registerResult) {
             session.setAttribute("LoginUser", newUser.getUserName());
+            session.setAttribute("UserID", newUser.getId());
             return Result.success(newUser.getUserName(), "注册成功");
         } else {
             return Result.error(456, "注册失败", response);
@@ -89,9 +92,17 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/checkSession")
     public Boolean checkSession() {
         return true;
+    }
+
+    @GetMapping("/getNotifications")
+    public Result<List<UserNotification>> getNotifications(HttpSession session, HttpServletResponse response) throws IOException {
+        long userID = (long) session.getAttribute("UserID");
+        User user = userService.getUserByID(userID);
+        return user == null
+                ? Result.error(401, "User Not Found", response)
+                : Result.success(user.userNotifications);
     }
 }

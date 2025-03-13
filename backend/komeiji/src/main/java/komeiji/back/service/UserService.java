@@ -10,4 +10,5 @@ public interface UserService {
     Boolean registerService(User user);
     User getUserByName(String uname);
     List<User> getUsersByUserClass(UserClass userClass);
+    User getUserByID(long id);
 }
